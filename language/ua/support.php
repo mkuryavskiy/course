@@ -1,0 +1,50 @@
+<?php
+
+return [
+    # Сообщение по умолчанию, если нет ключа с перевода...
+    '_key' => '<b style="color: firebrick">!!! УКАЖИТЕ ПЕРЕВОД !!!</b>',
+
+    # Ссылки
+    '_technical_support' => 'Технічна підтримка',
+    '_all' => 'Всі',
+    '_in_progress' => 'В роботі',
+    '_new' => 'Нові',
+    '_awaiting_response' => 'Чекають відповіді',
+    '_archive' => 'Архів',
+    '_support_hours' => 'Час роботи підтримки: пн-пт, з 9 до 22 за МСК',
+    '_response_time' => 'Час відповіді: до 12 годин',
+    '_create_ticket' => 'Створити звернення',
+    '_id' => 'ID',
+    '_date' => 'Дата',
+    '_category' => 'Категорія',
+    '_subject' => 'Тема',
+    '_messages' => 'Повідомлень',
+    '_status' => 'Статус',
+    '_no_tickets' => 'Звернень немає',
+    '_show_more' => 'ПОКАЗАТИ ЩЕ',
+    '_order_ids' => 'ID замовлень',
+    '_message' => 'Повідомлення',
+    '_add_screenshot' => 'Додати скріншот',
+	'_loading_files' => 'Завантажити файл',
+    '_send' => 'Надіслати',
+    '_created' => 'Створено',
+    '_updated' => 'Оновлено',
+    '_screenshots' => 'Скріншоти',
+    '_comment' => 'Коментар',
+    '_add_comment' => 'Додати коментар',
+    '_specify_category' => 'Вкажіть категорію',
+    '_specify_order_id' => 'Вкажіть ID замовлення',
+    '_specify_subject' => 'Вкажіть тему питання',
+    '_describe_issue' => 'Детально опишіть вашу проблему',
+    '_specify_comment' => 'Вкажіть коментар',
+    '_technical' => 'Технічна підтримка',
+    '_payments' => 'Фінансовий відділ',
+    '_guarantee' => 'Гарантія',
+    '_social' => 'Біржа завдань (заробіток)',
+    '_partnership' => 'Співпраця',
+    '_franchise' => 'Франшиза',
+	'_status_new' => 'НОВИЙ',
+	'_status_in_progress' => 'У РОБОТІ',
+	'_status_closed' => 'ЗАКРИТО'
+
+];
