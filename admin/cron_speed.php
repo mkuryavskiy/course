@@ -52,7 +52,6 @@ try {
     while ($service = $sql->fetch()) {
         // Check if 4 days have passed to update all services to green
         if ($currentTime - $lastUpdateTime >= UPDATE_INTERVAL) {
-            $descr = updateServiceDescription($service['ServiceDescription'], true, ' Быстрый запуск', ' Наблюдаются задержки запуска');
             $descrEN = updateServiceDescription($service['ServiceDescriptionEN'], true, ' Fast start', ' Start delay are possible');
             $descrUA = updateServiceDescription($service['ServiceDescriptionUA'], true, ' Швидкий запуск', ' Спостерігаються затримки запуску');
             
@@ -79,7 +78,6 @@ try {
                     $isGreen = ($startCount - $remainCount) >= ORDER_PROGRESS_THRESHOLD;
                     $color = $isGreen ? 'GREEN' : 'RED';
                     
-                    $descr = updateServiceDescription($service['ServiceDescription'], $isGreen, ' Быстрый запуск', ' Наблюдаются задержки запуска');
                     $descrEN = updateServiceDescription($service['ServiceDescriptionEN'], $isGreen, ' Fast start', ' Start delay are possible');
                     $descrUA = updateServiceDescription($service['ServiceDescriptionUA'], $isGreen, ' Швидкий запуск', ' Спостерігаються затримки запуску');
                     

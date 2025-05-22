@@ -8,56 +8,55 @@ require_once('../files/functions.php');
 
 $user->IsAdmin();
 
+function sendMail($name, $email, $text, $headers, $title) {
+    // Формування самого листа
+    $title = $title;
+    $body = "
+    <h2>$title</h2>
+    <b>Ім'я:</b> $name<br>
+    <b>Пошта:</b> $email<br><br>
+    <b>Повідомлення:</b><br>$text<br>
+    <b>Заголовки:</b><br>$headers<br>
+    ";
 
+    // Налаштування PHPMailer
+    $mail = new PHPMailer\PHPMailer\PHPMailer();
+    try {
+        $mail->isSMTP();   
+        $mail->CharSet = "UTF-8";
+        $mail->SMTPAuth   = true;
+        // $mail->SMTPDebug = 4;
+        $mail->Debugoutput = function($str, $level) {$GLOBALS['status'][] = $str;};
 
-	function sendMail($name, $email, $text, $headers, $title) {
-	// Формирование самого письма
-	$title = $title;
-	$body = "
-	<h2>$title</h2>
-	<b>Имя:</b> $name<br>
-	<b>Почта:</b> $email<br><br>
-	<b>Сообщение:</b><br>$text<br>
-	<b>Сообщение:</b><br>$headers<br>
-	";
+        // Налаштування вашої пошти
+        $mail->Host       = 'mail.wiq.by'; // SMTP сервер вашої пошти
+        $mail->Username   = 'noreply@wiq.by'; // Логін на пошті
+        $mail->Password   = '126125gg'; // Пароль на пошті
+        $mail->SMTPSecure = 'ssl';
+        $mail->Port       = 465;
+        $mail->setFrom('noreply@wiq.by', 'noreply@wiq.by'); // Адрес самої пошти та ім'я відправника
+        $mail->addAddress($email);  
+        $mail->isHTML(true);
+        $mail->Subject = $title;
+        $mail->Body = $body;  
+        // $mail->send();  
 
-	// Настройки PHPMailer
-	$mail = new PHPMailer\PHPMailer\PHPMailer();
-	try {
-	    $mail->isSMTP();   
-	    $mail->CharSet = "UTF-8";
-	    $mail->SMTPAuth   = true;
-	    // $mail->SMTPDebug = 4;
-	    $mail->Debugoutput = function($str, $level) {$GLOBALS['status'][] = $str;};
+        // Перевіряємо відправленість повідомлення
+        if ($mail->send()) {$result = "success";} 
+        else {$result = "error";}
 
-	    // Настройки вашей почты
-    $mail->Host       = 'mail.wiq.by'; // SMTP сервера вашей почты
-    $mail->Username   = 'noreply@wiq.by'; // Логин на почте
-    $mail->Password   = '126125gg'; // Пароль на почте
-    $mail->SMTPSecure = 'ssl';
-    $mail->Port       = 465;
-    $mail->setFrom('noreply@wiq.by', 'noreply@wiq.by'); // Адрес самой почты и имя отправителя
-    $mail->addAddress($email);  
-	$mail->isHTML(true);
-	$mail->Subject = $title;
-	$mail->Body = $body;  
-	// $mail->send();  
+    } catch (Exception $e) {
+        $result = "error";
+        $status = "Повідомлення не було відправлено. Причина помилки: {$mail->ErrorInfo}";
+    }
+}
 
-	// Проверяем отравленность сообщения
-	if ($mail->send()) {$result = "success";} 
-	else {$result = "error";}
-
-	} catch (Exception $e) {
-	    $result = "error";
-	    $status = "Сообщение не было отправлено. Причина ошибки: {$mail->ErrorInfo}";
-		}
-	}
 function GetAction($action) {
-	if(isset($_POST['action']) && $_POST['action'] == $action) {
-		return true;
-	} else {
-		return false;
-	}
+    if(isset($_POST['action']) && $_POST['action'] == $action) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function TakeData($Type, $Value, $Email = false, $URL = false) {
@@ -69,22 +68,22 @@ function TakeData($Type, $Value, $Email = false, $URL = false) {
                     $stmt = $pdo->prepare('UPDATE settings SET '.$Type.' = :Value LIMIT 1');
                     $stmt->execute(array(':Value' => $Value));
                 } else {
-                    echo 'Неверный адрес электронной почты.';
+                    echo 'Невірна адреса електронної пошти.';
                 }
             } else if($URL == true) {
                 if (!filter_var($Value, FILTER_VALIDATE_URL) === false) {
                     $stmt = $pdo->prepare('UPDATE settings SET '.$Type.' = :Value LIMIT 1');
                     $stmt->execute(array(':Value' => $Value));
                 } else {
-                    echo 'Недопустимый URL-адрес.';
+                    echo 'Неприпустимий URL-адреса.';
                 }
             } else if ($Type !== 'UpdateOrderStatus'){
                 if(!empty($Value) && is_string($Value)) {
                     $stmt = $pdo->prepare('UPDATE settings SET ' . $Type . ' = :Value LIMIT 1');
                     $stmt->execute(array(':Value' => $Value));
-                    echo "Данные успешно сохранены";
+                    echo "Дані успішно збережено";
                 } else {
-                    echo 'Заполните поле правильно.';
+                    echo 'Заповніть поле правильно.';
                 }
             }
         } else {
@@ -192,7 +191,7 @@ if(GetAction('UpdateOrderStatus')) {
                         $resp = json_decode($return);
 
                         if (empty($resp) || (isset($resp) && property_exists($resp, 'error'))) {
-                            echo json_encode(['status' => false, 'message' => 'Ошибка отмены АПИ']);
+                            echo json_encode(['status' => false, 'message' => 'Помилка скасування АПІ']);
                             die();
                         }
                         else if (isset($resp) && (property_exists($resp, 'order') || property_exists($resp, 'cancel'))) {
@@ -211,7 +210,7 @@ if(GetAction('UpdateOrderStatus')) {
                 else {
                     echo json_encode([
                                  'status' => false,
-                                 'message' => 'Ошибка отмены заказ через API, попробуйте позже.'
+                                 'message' => 'Помилка скасування замовлення через API, спробуйте пізніше.'
                              ]);					
                 }
             }
@@ -233,7 +232,7 @@ if(GetAction('UpdateOrderStatus')) {
                         } elseif (isset($resp) && (property_exists($resp, 'error') || property_exists($resp, 'Error'))) {
                             $respError =  $resp->error ? $resp->error : $resp->Error;
                             if (empty($respError))
-                                $respError = 'Неизвестная ошибка при отправке данных в API Сервис';
+                                $respError = 'Невідома помилка при відправці даних в API Сервіс';
 
                             $stmt = $pdo->prepare('UPDATE orders SET OrderStatus = :OrderStatus WHERE OrderID = :OrderID');
                             $stmt->execute([
@@ -259,7 +258,7 @@ if(GetAction('UpdateOrderStatus')) {
                     else {
                         die(json_encode([
                             'status' => false,
-                            'message' => 'Не получен ID заказа от АПИ сервиса!'
+                            'message' => 'Не отримано ID замовлення від АПІ сервісу!'
                         ]));
                     }
                 }
@@ -289,12 +288,12 @@ if(GetAction('UpdateOrderStatus')) {
         } else {
             echo json_encode([
                                  'status' => false,
-                                 'message' => 'Order does not exists.'
+                                 'message' => 'Замовлення не існує.'
                              ]);
         }
     } catch (Throwable $e) {
-        echo json_encode(['status' => false, 'message' => 'Внутренняя ошибка']);
+        echo json_encode(['status' => false, 'message' => 'Внутрішня помилка']);
         die();
     }
-    echo json_encode(['status' => true, 'message' => 'Статус успешно изменен']);
+    echo json_encode(['status' => true, 'message' => 'Статус успішно змінено']);
 }

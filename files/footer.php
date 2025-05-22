@@ -24,13 +24,10 @@ function safe_url($url) {
                     <i class="fa fa-envelope" aria-hidden="true"></i> support@wiq.by
                 </div>
                 <div class="footer-made">
-                    <img src="/theme/img/footer/webmoney.png" width="88" height="31">
                     <img src="/theme/img/footer/visa.png" width="50" height="30">
-                    <img src="/theme/img/footer/yandexmoney.png" width="50" height="30">
                     <img src="/theme/img/footer/payoneer.png" width="50" height="30">
                     <img src="/theme/img/footer/sms.png" width="50" height="30">
                     <img src="/theme/img/footer/pci.png" width="50" height="30">
-                    <img src="/theme/img/footer/fk2.png" width="88" height="31">
                 </div>
             </div>
         </div>

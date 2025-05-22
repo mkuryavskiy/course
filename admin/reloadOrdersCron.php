@@ -5,7 +5,6 @@ global $layer;
 global $pdo;
 global $orders;
 
-// Функция для обновления статуса заказа
 function updateOrderStatus($pdo, $orders, $OrderID, $status, $remain, $MoneyWasReturned) {
     if ($status == 'Refunded' || $status == 'Canceled') {
         $stmt = $pdo->prepare('UPDATE orders SET OrderStatus = :status, OrderCharge = 0 WHERE OrderID = :OrderID');
@@ -33,7 +32,6 @@ function updateOrderStatus($pdo, $orders, $OrderID, $status, $remain, $MoneyWasR
     }
 }
 
-// Функция для обновления остатка заказа
 function updateOrderRemain($pdo, $orders, $OrderID, $status) {
     $OrderRemains = $orders->CheckOrderRemains($OrderID);
 
@@ -46,7 +44,6 @@ function updateOrderRemain($pdo, $orders, $OrderID, $status) {
     }
 }
 
-// Основной код для обработки заказов
 $result = $pdo->prepare("SELECT * FROM `orders` WHERE `OrderStatus` IN ('Processing', 'Pending', 'In progress', 'API') ORDER BY `OrderID` DESC");
 $result->execute();
 $ordersList = $result->fetchAll();

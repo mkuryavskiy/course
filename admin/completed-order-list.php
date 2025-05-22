@@ -13,14 +13,14 @@
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>Сервис</th>
-						<th>Пользователь</th>
-						<th>Цена</th>
-						<th>Кол-во</th>
-						<th style="width: 220px;">Ссылка</th>
-						<th>Время</th>
-						<th>Остаток</th>
-						<th>Было</th>
+						<th>Послуга</th>
+						<th>Користувач</th>
+						<th>Ціна</th>
+						<th>Кількість</th>
+						<th style="width: 220px;">Посилання</th>
+						<th>Час</th>
+						<th>Залишок</th>
+						<th>Було</th>
 						<th>Статус</th>
 						<th>Оформлено</th>
 					</tr>
@@ -28,14 +28,14 @@
 				<tfoot>
 					<tr>
 						<th>ID</th>
-						<th>Сервис</th>
-						<th>Пользователь</th>
-						<th>Цена</th>
-						<th>Кол-во</th>
-						<th style="width: 220px;">Ссылка</th>
-						<th>Время</th>
-						<th>Остаток</th>
-						<th>Было</th>
+						<th>Послуга</th>
+						<th>Користувач</th>
+						<th>Ціна</th>
+						<th>Кількість</th>
+						<th style="width: 220px;">Посилання</th>
+						<th>Час</th>
+						<th>Залишок</th>
+						<th>Було</th>
 						<th>Статус</th>
 						<th>Оформлено</th>
 					</tr>
@@ -48,13 +48,16 @@
 ?>
 <script>
 $(document).ready(function() {
-    var table = $('#completed-orders').DataTable( {
+    var table = $('#completed-orders').DataTable({
         "order": [[0, "desc"]],
         "processing": true,
         "serverSide": true,
-		"scrollX": "200px",
+        "scrollX": "200px",
         "scrollCollapse": true,
-        "ajax": "files/SSP/completed-orders.php"
+        "ajax": "files/SSP/completed-orders.php",
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Ukrainian.json"
+        }
     });
 });
 </script>

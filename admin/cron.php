@@ -15,7 +15,7 @@ while ($row = $sql->fetch()) {
 		$stmt = $pdo->prepare('SELECT * FROM services WHERE ServiceID = :ServiceID');
 		$stmt->execute(array(':ServiceID' => $row['OrderServiceID']));
 		if($stmt->rowCount() == 1) {
-			$row2 = $stmt->fetch();		// информация о сервисе, через который надо отправить повторно
+			$row2 = $stmt->fetch();	
 				
 			$order_id = 0;
 			if(!empty($row2['ServiceAPI'])) {
@@ -44,7 +44,7 @@ while ($row = $sql->fetch()) {
 					$headers .= "Reply-To: " . strip_tags($sendfrom) . "\r\n";
 					$headers .= "MIME-Version: 1.0\r\n";
 					$headers .= "Content-Type: text/html;charset=utf-8 \r\n";
-                    $subject = '=?utf-8?B?'.base64_encode('Ошибка АПИ').'?=';
+                    $subject = '=?utf-8?B?'.base64_encode('Помилка АПИ').'?=';
 					$message = print_r($resp->error,true).'<br>
 					'.$URL;
 					$send = mail($to, $subject, $message, $headers);

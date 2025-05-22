@@ -182,25 +182,16 @@ require_once('files/header.php');
         background: #111 !important;
         border: none;
         padding: .5em 2em;
-        /* font-size: 16px; */
         text-align: center;
         cursor: pointer;
         outline: none;
         color: #fff;
         border: none;
-        /* border-radius: 5px; */
-        border: none !important;
         margin: 0 .1em;
-        /* box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24); */
     }
-
-    /* Adding styles on 'active' state */
 
     .page-item.active .dataTables_paginate,
     .page-item:hover .dataTables_paginate {
-        /* box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24); */
-        /* transform: translateY(4px); */
-        /* Moving button 4px to y-axis */
         color: #eee !important;
         border: 1px solid #979797 !important;
         margin-top: -1px;
@@ -230,15 +221,13 @@ require_once('files/header.php');
                     <div class='row'>
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <h4 style="margin-bottom: 6px;">
-                                <span @click="tickets_filter_set('mode', 'all')" :class="tickets_filter_class('mode', 'all', 'active')">Все</span>
-                                <span @click="tickets_filter_set('mode', 'active')" :class="tickets_filter_class('mode', 'active', 'active')">В работе</span>
-                                <span @click="tickets_filter_set('mode', 'new')" :class="tickets_filter_class('mode', 'new', 'active')">Новые</span>
-                                <span style="display: none" @click="tickets_filter_set('mode', 'not_viewed')" :class="tickets_filter_class('mode', 'not_viewed', 'active')">Ждут ответа</span>
-                                <span @click="tickets_filter_set('mode', 'closed')" :class="tickets_filter_class('mode', 'closed', 'active')">Архив</span>
+                                <span @click="tickets_filter_set('mode', 'all')" :class="tickets_filter_class('mode', 'all', 'active')">Всі</span>
+                                <span @click="tickets_filter_set('mode', 'active')" :class="tickets_filter_class('mode', 'active', 'active')">В роботі</span>
+                                <span @click="tickets_filter_set('mode', 'new')" :class="tickets_filter_class('mode', 'new', 'active')">Нові</span>
+                                <span style="display: none" @click="tickets_filter_set('mode', 'not_viewed')" :class="tickets_filter_class('mode', 'not_viewed', 'active')">Чекають відповіді</span>
+                                <span @click="tickets_filter_set('mode', 'closed')" :class="tickets_filter_class('mode', 'closed', 'active')">Архів</span>
                             </h4>
-
                         </div>
-
                     </div>
                     <div class="table-responsive">
                         <table class="table table-hover table-bordered cell-border">
@@ -246,10 +235,10 @@ require_once('files/header.php');
                                 <tr>
                                     <th width="60">ID</th>
                                     <th width="120" title="Дата">Дата</th>
-                                    <th>Пользователь</th>
-                                    <th>Категория</th>
+                                    <th>Користувач</th>
+                                    <th>Категорія</th>
                                     <th>Тема</th>
-                                    <th width="60">Сообщений</th>
+                                    <th width="60">Повідомлень</th>
                                     <th width="90">Статус</th>
                             </thead>
                             <tbody>
@@ -270,7 +259,7 @@ require_once('files/header.php');
                                 </template>
                                 <template v-else>
                                     <tr>
-                                        <td colspan='6' align='center'>Обращений нет</td>
+                                        <td colspan='6' align='center'>Звернень немає</td>
                                     </tr>
                                 </template>
                             </tbody>
@@ -279,7 +268,7 @@ require_once('files/header.php');
                     <div class="btn_page">
                         <nav>
                             <ul class="pagination justify-content-center">
-                                <li @click="pageIndexMinus" class="page-item"><span class="page-link dataTables_paginate">Предыдущая</span></li>
+                                <li @click="pageIndexMinus" class="page-item"><span class="page-link dataTables_paginate">Попередня</span></li>
                                 <li v-if="btnPagination[btnPaginationActive] + Math.ceil(paginationBtnCount / 2) > paginationBtnCount" class="page-item" @click="paginationFirstBtn">
                                     <span class="page-link dataTables_paginate">1</span>
                                 </li>
@@ -293,12 +282,9 @@ require_once('files/header.php');
                                 <li v-if="btnPagination[btnPaginationActive] + Math.ceil(paginationBtnCount / 2) < ticketsPageSize" class="page-item" @click="paginationLastBtn(ticketsPageSize)">
                                     <span class="page-link dataTables_paginate">{{ ticketsPageSize }}</span>
                                 </li>
-                                <li @click="pageIndexPlus" class="page-item"><span class="page-link dataTables_paginate">Следующая</span></li>
+                                <li @click="pageIndexPlus" class="page-item"><span class="page-link dataTables_paginate">Наступна</span></li>
                             </ul>
                         </nav>
-
-                        <!-- <button @click="prevPage" class="dataTables_paginate " data-dt-idx="0" tabindex="0" id="categories_previous">Предыдущая</button> -->
-                        <!-- <button @click="nextPage" class="dataTables_paginate " data-dt-idx="0" tabindex="0" id="categories_previous">Следующая</button> -->
                     </div>
                 </div>
             </div>
@@ -313,7 +299,7 @@ require_once('files/header.php');
                 <div class='row'>
                     <div class='col-md-12'>
                         <div class="form-group">
-                            <label style="font-weight: normal">Категория</label>
+                            <label style="font-weight: normal">Категорія</label>
                             <select class="form-control select_projects" ref="select_projects" v-model="modal_ticket_create_project_id">
                                 <option v-for="project in projects" :value="project.id">
                                     {{project.title}}
@@ -329,23 +315,15 @@ require_once('files/header.php');
                     </div>
                     <div class='col-md-12'>
                         <div class="form-group">
-                            <label style="font-weight: normal">Сообщение</label>
+                            <label style="font-weight: normal">Повідомлення</label>
                             <textarea class="form-control" rows="8" v-model="modal_ticket_create_body"></textarea>
                         </div>
                     </div>
                     <div class='col-md-12'>
                         <div class="form-group">
-
-                            <label style="font-weight: normal">Добавить скриншот</label>
-
+                            <label style="font-weight: normal">Додати скріншот</label>
                             <vue-dropzone ref="myVueDropzone" id="dropzone" :options="dropzoneOptions" :destroy-dropzone="false" @vdropzone-file-added="vdropzone_file_added_my" @vdropzone-thumbnail="vdropzone_thumbnail_my" @vdropzone-sending="vdropzone_sending_my" @vdropzone-queue-complete="vdropzone_queue_complete_my">
                             </vue-dropzone>
-
-
-
-
-
-
                         </div>
                     </div>
                     <div class='col-md-12'>
@@ -357,7 +335,7 @@ require_once('files/header.php');
                     </div>
                     <div class='col-md-12'>
                         <button type="button" class="btn btn-mod btn-medium btn-round pull-left" @click="modal_ticket_create_submit" :disabled="modal_ticket_create_submit_clicked">
-                            <span>Отправить</span>
+                            <span>Надіслати</span>
                         </button>
                     </div>
                 </div>
@@ -379,24 +357,23 @@ require_once('files/header.php');
                 </div>
                 <div class='row'>
                     <div class='col-md-12'>
-                        <b>Создано:</b> {{modal_ticket_date_created}}<BR />
-                        <b>Обновлено:</b> {{modal_ticket_date_updated}}<BR />
-                        <b>Статус:</b> <span v-html="modal_ticket_status_title"></span> <button @click="set_status()" class="btn btn-info btn-sm"><span>Установить</span></button> <button @click="delete_ticket()" class="btn btn-danger btn-sm"><span>Удалить тикет</span></button><BR />
-
+                        <b>Створено:</b> {{modal_ticket_date_created}}<BR />
+                        <b>Оновлено:</b> {{modal_ticket_date_updated}}<BR />
+                        <b>Статус:</b> <span v-html="modal_ticket_status_title"></span> <button @click="set_status()" class="btn btn-info btn-sm"><span>Встановити</span></button> <button @click="delete_ticket()" class="btn btn-danger btn-sm"><span>Видалити тікет</span></button><BR />
                     </div>
-					<div class='col-md-12' style='word-break: break-all;'>
-						<BR />
-						<h3 style='margin: 0'>{{modal_ticket_title}}</h3>
-						{{modal_ticket_body}}
-						<BR />
-						<BR/>
-						<template v-if="order_id && order_id !== 'undefined'">
-							<b>ID заказов:</b> {{order_id}}<BR />
-						</template>
-					</div>
+                    <div class='col-md-12' style='word-break: break-all;'>
+                        <BR />
+                        <h3 style='margin: 0'>{{modal_ticket_title}}</h3>
+                        {{modal_ticket_body}}
+                        <BR />
+                        <BR/>
+                        <template v-if="order_id && order_id !== 'undefined'">
+                            <b>ID замовлень:</b> {{order_id}}<BR />
+                        </template>
+                    </div>
                     <div class='col-md-12' v-if="modal_ticket_files">
                         <BR />
-                        <span>Скриншоты:</span><BR />
+                        <span>Скріншоти:</span><BR />
                         <div v-for="(file, key) in modal_ticket_files" :key="'ticket_file' + key">
                             <a :href="file.link" target="_blank">
                                 <img :src="file.link" width="100" />
@@ -406,7 +383,7 @@ require_once('files/header.php');
                     <BR />
                     <div class='col-md-12' style='margin-top: 15px'>
                         <div class="form-group">
-                            <textarea id="textareaComment" autocomplete="off" class="form-control comment_text" rows="5" placeholder='Комментарий' v-model="comment_new" :disabled="ticket_close_but_disabled() || comment_add_but_disabled()"></textarea>
+                            <textarea id="textareaComment" autocomplete="off" class="form-control comment_text" rows="5" placeholder='Коментар' v-model="comment_new" :disabled="ticket_close_but_disabled() || comment_add_but_disabled()"></textarea>
                         </div>
                     </div>
                     <div class='col-md-12' v-if="comment_add_submit_error_text">
@@ -415,21 +392,18 @@ require_once('files/header.php');
                         </div>
                     </div>
                     <div class="col-md-12">
-
                         <div class="form-group">
                             <button @click="comment_add()" class="btn btn-default btn-default-2 pull-left" :disabled="comment_add_but_disabled()">
                                 <span>
-                                    Добавить комментарий
+                                    Додати коментар
                                 </span>
                             </button>
-
                             <button v-if="!comment_add_file_clicked" @click="comment_add_file_click()" class="btn btn-default btn-default-2 pull-right">
                                 <span>
-                                    Добавить скриншот
+                                    Додати скріншот
                                 </span>
                             </button>
                         </div>
-
                     </div>
                     <div class='col-md-12' v-if="comment_add_file_clicked">
                         <div class="form-group" style="margin-top: 15px">
@@ -437,8 +411,6 @@ require_once('files/header.php');
                             </vue-dropzone>
                         </div>
                     </div>
-
-
                     <div class="col-md-12" style="margin-left: 0px; margin-right: 0px">
                         <template v-if="comments.length">
                             <div v-for="(comment, key) in comments" :key="comment.id">
@@ -446,7 +418,6 @@ require_once('files/header.php');
                                 <div v-else class="row">
                                     <hr style='margin-top: 10px; margin-bottom: 10px;' />
                                 </div>
-
                                 <div class="row comment_row" style='margin-left: -5px; margin-right: -5px'>
                                     <div class="media">
                                         <div class="media-left" v-if="comment.my">
@@ -459,12 +430,10 @@ require_once('files/header.php');
                                             <b v-else>
                                                 {{comment.author_name}}
                                             </b>
-
                                             <small style="color: gray" class="pull-right">
                                                 {{comment.date_created_dmy}}
                                             </small>
                                             <div v-html="json_br(comment.body)"></div>
-
                                             <div v-if="comment.files">
                                                 <BR />
                                                 <div v-for="(file, key) in comment.files" :key="'comment_file' + file.id">
@@ -474,25 +443,16 @@ require_once('files/header.php');
                                                 </div>
                                             </div>
                                         </div>
-
-
-
-
                                     </div>
                                 </div>
                             </div>
                         </template>
                     </div>
-
                 </div>
             </div>
         </div>
     </modal>
 </section>
-
-
-
-
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 <script src="/theme/js/vue/vue-2.6.12.min.js?8" type="text/javascript"></script>
@@ -579,9 +539,7 @@ require_once('files/header.php');
                 thumbnailHeight: 175,
                 thumbnailMethod: 'crop',
                 addRemoveLinks: true,
-                dictDefaultMessage: "<i class='fa fa-cloud-upload' style='margin-right: 6px; vertical-align: middle;'></i> Загрузить файл",
-                //                timeout: 60000,
-                withCredentials: true,
+                dictDefaultMessage: "<i class='fa fa-cloud-upload' style='margin-right: 6px; vertical-align: middle;'></i> Завантажити файл",
                 maxFiles: 1,
                 maxFilesize: 10 // MB
             },
@@ -590,7 +548,6 @@ require_once('files/header.php');
         },
         watch: {
             'projects': function() {
-                //                this.select_modal_projects();
             }
         },
         computed: {
@@ -640,7 +597,6 @@ require_once('files/header.php');
             if (this.init_ticket_id) {
                 this.ticket_click(this.init_ticket_id);
             }
-
         },
         methods: {
             nextPage: function() {
@@ -678,16 +634,10 @@ require_once('files/header.php');
 
                 this.http_tickets_get();
             },
-            //            select_modal_projects: function() {
-            //                this.$nextTick(function () {
-            //                    window.$('.select_projects').selectpicker('refresh');
-            //                });
-            //            },
             ticket_click: function(ticket_id) {
                 this.comment_add_submit_error_text = '';
                 this.comment_add_file_clicked = false;
                 this.comment_new_file_ok = false;
-                //                this.$refs.myVueDropzone.removeAllFiles();
 
                 this.http_ticket_get(ticket_id);
             },
@@ -700,7 +650,6 @@ require_once('files/header.php');
                     this.modal_ticket_create_project_id = this.init_project_id;
                 }
 
-                //                this.select_modal_projects();      
                 this.$modal.show('modal_ticket_create');
             },
             modal_ticket_create_clear: function() {
@@ -724,21 +673,21 @@ require_once('files/header.php');
                 this.modal_ticket_create_submit_clicked = true;
 
                 if (!this.modal_ticket_create_project_id) {
-                    this.modal_ticket_submit_error_text = 'Укажите категорию';
+                    this.modal_ticket_submit_error_text = 'Вкажіть категорію';
                     this.modal_ticket_create_submit_clicked = false;
 
                     return false;
                 }
 
                 if (!this.modal_ticket_create_title) {
-                    this.modal_ticket_submit_error_text = 'Укажите тему вопроса';
+                    this.modal_ticket_submit_error_text = 'Вкажіть тему питання';
                     this.modal_ticket_create_submit_clicked = false;
 
                     return false;
                 }
 
                 if (!this.modal_ticket_create_body) {
-                    this.modal_ticket_submit_error_text = 'Опишите подробно вашу проблему';
+                    this.modal_ticket_submit_error_text = 'Опишіть докладно вашу проблему';
                     this.modal_ticket_create_submit_clicked = false;
 
                     return false;
@@ -757,11 +706,11 @@ require_once('files/header.php');
                             _this.$modal.hide('modal_ticket_create');
                             _this.modal_ticket_create_clear();
                         } else {
-                            _this.modal_ticket_submit_error('Ошибка', response.data);
+                            _this.modal_ticket_submit_error('Помилка', response.data);
                         }
                     })
                     .catch(function(error) {
-                        _this.modal_ticket_submit_error('Ошибка HTTP', error);
+                        _this.modal_ticket_submit_error('Помилка HTTP', error);
                     });
             },
 
@@ -791,17 +740,10 @@ require_once('files/header.php');
                         _this.$modal.hide('modal_ticket');
                     }
                 }).catch(function(error) {
-                    _this.modal_error('Ошибка HTTP', error);
+                    _this.modal_error('Помилка HTTP', error);
                     _this.comment_add_but_clicked = false;
                 });
-
             },
-
-
-
-
-
-
 
             comment_add: function() {
                 var _this = this;
@@ -812,7 +754,7 @@ require_once('files/header.php');
                 var comment_text = this.comment_new && this.comment_new.trim();
                 if (!comment_text) {
                     this.comment_add_but_clicked = false;
-                    this.comment_add_submit_error_text = 'Укажите комментарий';
+                    this.comment_add_submit_error_text = 'Вкажіть коментар';
 
                     return false;
                 }
@@ -824,18 +766,10 @@ require_once('files/header.php');
                             _this.comment_new_id = response.data.data;
 
                             if (_this.comment_new_file_ok) {
-                                //                            setTimeout(function () {
-                                _this.$refs.myVueDropzone.processQueue();
-                                //                            }, 500);
-                                //                            _this.$refs.myVueDropzone.processQueue();
-                            }
-
-                            if (_this.comment_new_file_ok) {
                                 setTimeout(() => _this.http_comments_get(_this.modal_ticket_id), 2000);
                             } else {
                                 _this.http_comments_get(_this.modal_ticket_id);
                             }
-
 
                             _this.comment_add_but_clicked = false;
                             _this.comment_add_file_clicked = false;
@@ -848,23 +782,19 @@ require_once('files/header.php');
                         }
                     })
                     .catch(function(error) {
-                        _this.modal_error('Ошибка HTTP', error.response.data);
+                        _this.modal_error('Помилка HTTP', error.response.data);
                         _this.comment_add_but_clicked = false;
                         _this.http_tickets_get();
                         _this.http_comments_get(_this.modal_ticket_id);
-                        // _this.$refs.myVueDropzone.processQueue();
                         setTimeout(() => _this.$refs.myVueDropzone.processQueue(), 1000);
                         setTimeout(() => _this.http_comments_get(_this.modal_ticket_id), 2000);
                         _this.comment_new = '';
                     });
             },
 
-
-
             comment_add_file_click: function() {
                 this.comment_add_file_clicked = true;
             },
-
 
             set_status: function() {
                 var _this = this;
@@ -882,12 +812,9 @@ require_once('files/header.php');
                         }
                     })
                     .catch(function(error) {
-                        _this.modal_error('Ошибка HTTP', error);
+                        _this.modal_error('Помилка HTTP', error);
                     });
-
             },
-
-
 
             http_tickets_get: function() {
                 var _this = this;
@@ -918,7 +845,7 @@ require_once('files/header.php');
                         }
 
                         _this.ticketsPageSize = Math.ceil(_this.tickets_load_count / _this.tickets_size);
-                        _this.paginationBtnCount = _this.paginationBtnCount % 2 === 0 ? _this.paginationBtnCount /*- 1*/ : _this.paginationBtnCount;
+                        _this.paginationBtnCount = _this.paginationBtnCount % 2 === 0 ? _this.paginationBtnCount : _this.paginationBtnCount;
 
                         let countButtonsView = _this.paginationBtnCount < _this.ticketsPageSize ? _this.paginationBtnCount : _this.ticketsPageSize;
 
@@ -930,13 +857,12 @@ require_once('files/header.php');
 
                         _this.ellipsisEnd = _this.btnPagination[_this.btnPaginationActive] + Math.ceil(_this.ticketsPageSize / 2) < _this.ticketsPageSize;
 
-
                         _this.next_page_but_clicked = false;
                     })
                     .catch(function(error) {
                         _this.tickets = [];
                         _this.next_page_but_clicked = false;
-                        _this.modal_error('Ошибка HTTP', error);
+                        _this.modal_error('Помилка HTTP', error);
                     });
             },
             pageTickets(i, page = null) {
@@ -975,14 +901,12 @@ require_once('files/header.php');
             pageIndexPlus() {
                 if (this.btnPagination[this.btnPaginationActive + 1] !== undefined && this.btnPaginationActive < this.ticketsPageSize) {
                     this.pageTickets(this.btnPaginationActive + 1);
-
                     this.nextPage();
                 }
             },
             pageIndexMinus() {
                 if (this.btnPagination[this.btnPaginationActive - 1] !== undefined && this.btnPaginationActive > 0) {
                     this.pageTickets(this.btnPaginationActive - 1);
-
                     this.prevPage();
                 }
             },
@@ -1021,7 +945,6 @@ require_once('files/header.php');
                 this.ellipsisEnd = false;
             },
 
-
             http_projects_get: function() {
                 var _this = this;
                 axios.get(this.base_url + 'tickets/api_admin.php?action=getProjects').then(function(response) {
@@ -1030,10 +953,9 @@ require_once('files/header.php');
                         }
                     })
                     .catch(function(error) {
-                        _this.modal_error('Ошибка HTTP', error);
+                        _this.modal_error('Помилка HTTP', error);
                     });
             },
-
 
             http_ticket_get: function(ticket_id) {
                 var _this = this;
@@ -1060,27 +982,13 @@ require_once('files/header.php');
 
                             _this.http_comments_get(result.id);
                         } else {
-                            _this.modal_error('Тикет не найден', null);
+                            _this.modal_error('Тікет не знайдено', null);
                         }
                     })
                     .catch(function(error) {
-                        _this.modal_error('Ошибка HTTP', error);
+                        _this.modal_error('Помилка HTTP', error);
                     });
             },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             http_comments_get: function(ticket_id) {
                 var _this = this;
@@ -1090,48 +998,36 @@ require_once('files/header.php');
                             var result = response.data.data;
                             console.log(result)
                             _this.comments = result;
-                            // _this.comment_new = '';
                         }
                     })
                     .catch(function(error) {
                         _this.comments = [];
-                        _this.modal_error('Ошибка HTTP', error);
+                        _this.modal_error('Помилка HTTP', error);
                     });
             },
 
-
-
-
             vdropzone_file_added_my: function(file) {
-                //                console.log(file);
             },
             vdropzone_thumbnail_my: function(file, dataUrl) {
-                //                console.log(file, dataUrl);
             },
             vdropzone_sending_my: function(file, xhr, formData) {
                 formData.append('action', 'uploadFile');
                 formData.append('ticket_id', this.modal_ticket_id);
                 formData.append('filename', file.name);
-                //                console.log(file);
             },
             vdropzone_queue_complete_my: function() {
                 this.$refs.myVueDropzone.removeAllFiles();
-                //                this.http_comment_get(this.comment_new_id);
-                //                this.comment_new_id = null;
-                //                console.log('complete');
             },
 
             vdropzone_file_added_my_comment: function(file) {
-                //                console.log('vdropzone_file_added_my_comment');
             },
             vdropzone_thumbnail_my_comment: function(file, dataUrl) {
                 var _this = this;
 
-                //                console.log('vdropzone_thumbnail_my_comment');
                 this.comment_new_file_ok = true;
 
                 if (!this.comment_new) {
-                    this.comment_new = 'Добавлен скриншот';
+                    this.comment_new = 'Додано скріншот';
                 }
 
                 this.comment_add();
@@ -1144,17 +1040,7 @@ require_once('files/header.php');
             },
             vdropzone_queue_complete_my_comment: function() {
                 this.$refs.myVueDropzone.removeAllFiles();
-                //                this.http_comment_get(this.comment_new_id);
-                //                this.comment_new_id = null;
-                //                console.log('vdropzone_queue_complete_my_comment');
             },
-
-
-
-
-
-
-
 
             json_br: function(v) {
                 return v.replace(/\n/g, "<br>");
@@ -1170,7 +1056,6 @@ require_once('files/header.php');
             'input-focus': function(el, binding) {
                 Vue.nextTick(function() {
                     el.focus();
-                    //console.log(el);
                 });
             }
         }

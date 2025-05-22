@@ -11,9 +11,8 @@ function GetAction($action) {
     }
 }
 
-
 /*
-    Categories
+    Категорії
 */
 
 if(GetAction('get-category-details')) {
@@ -32,7 +31,6 @@ if(GetAction('get-category-details')) {
 
 if(GetAction('save-category')) {
     $CategoryID = $layer->safe('EditCategoryID');
-   // $CategoryName = $layer->safe('EditCategoryName');
     $CategoryName = $_POST['EditCategoryName'];
     $CategoryDescription = $layer->safe('EditCategoryDescription');
     $CategoryDescription = $_POST['EditCategoryDescription'];
@@ -45,7 +43,7 @@ if(GetAction('save-category')) {
         $CategoryNameEN = $_POST['EditCategoryNameEN'];
         $CategoryDescriptionEN = $_POST['EditCategoryDescriptionEN'];
     } else {
-        echo 'Не заполнены поля на английском';
+        echo 'Не заповнені поля англійською';
         exit();
     }
 
@@ -53,7 +51,7 @@ if(GetAction('save-category')) {
         $CategoryNameUA = $_POST['EditCategoryNameUA'];
         $CategoryDescriptionUA = $_POST['EditCategoryDescriptionUA'];
     } else {
-        echo 'Не заполнены поля на украинском';
+        echo 'Не заповнені поля українською';
         exit();
     }
 
@@ -69,9 +67,9 @@ if(GetAction('save-category')) {
             ':CategoryActive'        => $CategoryActive,
             ':CategoryID'            => $CategoryID
         ));
-        echo "Категория успешно отредактирована!";
+        echo "Категорію успішно відредаговано!";
     } else {
-        echo 'Category does not exists.';
+        echo 'Категорія не існує.';
     }
 }
 
@@ -85,7 +83,7 @@ if(GetAction('delete-category')) {
         $stmt = $pdo->prepare('DELETE FROM categories WHERE CategoryID = :CategoryID');
         $stmt->execute(array(':CategoryID' => $CategoryID));
     } else {
-        echo 'Категории не существует.';
+        echo 'Категорія не існує.';
     }
 }
 
@@ -98,7 +96,7 @@ if(GetAction('create-category')) {
         $CategoryNameEN = $_POST['CategoryNameEN'];
         $CategoryDescriptionEN = $_POST['CategoryDescriptionEN'];
     } else {
-        echo 'Не заполнены поля на английском';
+        echo 'Не заповнені поля англійською';
         exit();
     }
 
@@ -106,7 +104,7 @@ if(GetAction('create-category')) {
         $CategoryNameUA = $_POST['CategoryNameUA'];
         $CategoryDescriptionUA = $_POST['CategoryDescriptionUA'];
     } else {
-        echo 'Не заполнены поля на украинском';
+        echo 'Не заповнені поля українською';
         exit();
     }
 
@@ -121,26 +119,24 @@ if(GetAction('create-category')) {
         ':CategoryActive'        => $CategoryActive,
         ':CategoryDate'          => time()
     ));
-    echo "Категория успешно создана";
+    echo "Категорію успішно створено";
 }
 
 /*
-    Services
+    Послуги
 */
 
 if(GetAction('create-service')) {
-    // echo "Услуга успешно создана";
-    // exit();
     $ServiceName = $layer->safe('ServiceName');
     $ServiceDescription = $layer->safe('ServiceDescription');
-    $ServiceDescription = $_POST['ServiceDescription']; // <----------------------------------------------
+    $ServiceDescription = $_POST['ServiceDescription'];
     $ServiceCategoryID = $layer->safe('ServiceCategoryID');
 
     if(isset($_POST['ServiceAPI'])) {
         if(!filter_var($_POST['ServiceAPI'], FILTER_VALIDATE_URL) === false) {
             $ServiceAPI = $layer->safe('ServiceAPI');
         } else {
-            echo 'Invalid service API URL.';
+            echo 'Невірний URL API послуги.';
             exit();
         }
     } else {
@@ -150,7 +146,7 @@ if(GetAction('create-service')) {
         if(!filter_var($_POST['ServiceOrderAPI'], FILTER_VALIDATE_URL) === false) {
             $ServiceOrderAPI = $layer->safe('ServiceOrderAPI');
         } else {
-            echo 'Недопустимый URL-адрес API-адреса заказа.';
+            echo 'Невірний URL API замовлення.';
             exit();
         }
     } else {
@@ -168,12 +164,11 @@ if(GetAction('create-service')) {
     $ServiceRefill = $layer->safe('ServiceRefill') == "Yes" ? 1 : 0;
     $ServiceRefillDuration = $layer->safe('ServiceRefillDuration');
 
-
     if(isset($_POST['ServiceNameEN']) && isset($_POST['ServiceDescriptionEN'])) {
         $ServiceNameEN = $_POST['ServiceNameEN'];
         $ServiceDescriptionEN = $_POST['ServiceDescriptionEN'];
     } else {
-        echo 'Не заполнены поля на английском';
+        echo 'Не заповнені поля англійською';
         exit();
     }
 
@@ -181,7 +176,7 @@ if(GetAction('create-service')) {
         $ServiceNameUA = $_POST['ServiceNameUA'];
         $ServiceDescriptionUA = $_POST['ServiceDescriptionUA'];
     } else {
-        echo 'Не заполнены поля на украинском';
+        echo 'Не заповнені поля українською';
         exit();
     }
 
@@ -211,9 +206,9 @@ if(GetAction('create-service')) {
             ':refill_duration'      => $ServiceRefillDuration,
             ':cancel'               => $ServiceCancel
         ));
-        echo "Услуга успешно создана";
+        echo "Послугу успішно створено";
     } else {
-        echo 'Минимальный уровень обслуживания не может превышать максимальное количество.';
+        echo 'Мінімальна кількість не може перевищувати максимальну.';
     }
 }
 
@@ -241,8 +236,7 @@ if(GetAction('save-service')) {
         $ServiceOData = $stmt->fetch();
     }
 
-    //$ServiceName = $layer->safe('EditServiceName');
-	$ServiceName =  $_POST['EditServiceName'];
+    $ServiceName =  $_POST['EditServiceName'];
     $ServiceDescription = $layer->safe('EditServiceDescription');
     $ServiceDescription = $_POST['EditServiceDescription'];
     $ServiceCategoryID = $layer->safe('EditServiceCategoryID');
@@ -251,7 +245,7 @@ if(GetAction('save-service')) {
         if(!filter_var($_POST['EditServiceAPI'], FILTER_VALIDATE_URL) === false) {
             $ServiceAPI = $layer->safe('EditServiceAPI');
         } else {
-            echo 'Недопустимый URL-адрес API-службы.';
+            echo 'Невірний URL API послуги.';
             exit();
         }
     } else {
@@ -262,16 +256,15 @@ if(GetAction('save-service')) {
         if(!filter_var($_POST['EditServiceOrderAPI'], FILTER_VALIDATE_URL) === false) {
             $ServiceOrderAPI = $layer->safe('EditServiceOrderAPI');
         } else {
-            echo 'Недопустимый URL-адрес API-адреса заказа.';
+            echo 'Невірний URL API замовлення.';
             exit();
         }
     } else {
         $ServiceOrderAPI = '';
     }
 
-    // Проверка совпадения первых 50 символов между ServiceAPI и ServiceOrderAPI
     if(substr($ServiceAPI, 0, 50) !== substr($ServiceOrderAPI, 0, 50)) {
-        echo 'Не совпадают URL';
+        echo 'URL не співпадають';
         return;
     }
 
@@ -290,7 +283,7 @@ if(GetAction('save-service')) {
         $EditServiceNameEN = $_POST['EditServiceNameEN'];
         $EditServiceDescriptionEN = $_POST['EditServiceDescriptionEN'];
     } else {
-        echo 'Не заполнены поля на английском';
+        echo 'Не заповнені поля англійською';
         exit();
     }
 
@@ -298,7 +291,7 @@ if(GetAction('save-service')) {
         $EditServiceNameUA = $_POST['EditServiceNameUA'];
         $EditServiceDescriptionUA = $_POST['EditServiceDescriptionUA'];
     } else {
-        echo 'Не заполнены поля на украинском';
+        echo 'Не заповнені поля українською';
         exit();
     }
 
@@ -334,27 +327,27 @@ if(GetAction('save-service')) {
             $SELogUA= [];
             $SELogEN = [];
             if($ServiceOData['ServiceActive'] != $ServiceActive) {
-                $SELog[] = ($ServiceActive == 'Yes') ? 'Услуга включена' : 'Услуга выключена';
-                $SELogUA[] = ($ServiceActive == 'Yes') ? 'Послуга увімкнена' : 'Послуга вимкнена';
+                $SELog[] = ($ServiceActive == 'Yes') ? 'Послугу увімкнено' : 'Послугу вимкнено';
+                $SELogUA[] = ($ServiceActive == 'Yes') ? 'Послугу увімкнено' : 'Послугу вимкнено';
                 $SELogEN[] = ($ServiceActive == 'Yes') ? 'Service is enabled' : 'Service is disabled';
             }
             if($ServiceOData['ServicePrice'] != $ServicePrice) {
-                $SELog[] = ($ServiceOData['ServicePrice'] < $ServicePrice) ? 'Цена возросла с '.$ServiceOData['ServicePrice'].' $ до '.$ServicePrice.' $' : 'Цена уменьшилась с '.$ServiceOData['ServicePrice'].' $ до '.$ServicePrice.' $';
+                $SELog[] = ($ServiceOData['ServicePrice'] < $ServicePrice) ? 'Ціна зросла з '.$ServiceOData['ServicePrice'].' $ до '.$ServicePrice.' $' : 'Ціна зменшилася з '.$ServiceOData['ServicePrice'].' $ до '.$ServicePrice.' $';
                 $SELogUA[] = ($ServiceOData['ServicePrice'] < $ServicePrice) ? 'Ціна зросла з '.$ServiceOData['ServicePrice'].' $ до '.$ServicePrice.' $' : 'Ціна зменшилася з '.$ServiceOData['ServicePrice'].' $ до '.$ServicePrice.' $';
                 $SELogEN[] = ($ServiceOData['ServicePrice'] < $ServicePrice) ? 'Price has increased from '.$ServiceOData['ServicePrice'].' $ to '.$ServicePrice.' $' : 'Price has decreased from '.$ServiceOData['ServicePrice'].' $ to '.$ServicePrice.' $';
             }
             if($ServiceOData['ServiceResellerPrice'] != $ServiceResellerPrice) {
-                $SELog[] = ($ServiceOData['ServiceResellerPrice'] < $ServiceResellerPrice) ? 'Цена для реселлеров возросла с '.$ServiceOData['ServiceResellerPrice'].' $ до '.$ServiceResellerPrice.' $' : 'Цена для реселлеров уменьшилась с '.$ServiceOData['ServiceResellerPrice'].' $ до '.$ServiceResellerPrice.' $';
+                $SELog[] = ($ServiceOData['ServiceResellerPrice'] < $ServiceResellerPrice) ? 'Ціна для реселерів зросла з '.$ServiceOData['ServiceResellerPrice'].' $ до '.$ServiceResellerPrice.' $' : 'Ціна для реселерів зменшилася з '.$ServiceOData['ServiceResellerPrice'].' $ до '.$ServiceResellerPrice.' $';
                 $SELogUA[] = ($ServiceOData['ServiceResellerPrice'] < $ServiceResellerPrice) ? 'Ціна для реселерів зросла з '.$ServiceOData['ServiceResellerPrice'].' $ до '.$ServiceResellerPrice.' $' : 'Ціна для реселерів зменшилася з '.$ServiceOData['ServiceResellerPrice'].' $ до '.$ServiceResellerPrice.' $';
                 $SELogEN[] = ($ServiceOData['ServiceResellerPrice'] < $ServiceResellerPrice) ? 'Resselers\'s price has increased from '.$ServiceOData['ServiceResellerPrice'].' $ to '.$ServiceResellerPrice.' $' : 'Resseler\'s price has decreased from '.$ServiceOData['ServiceResellerPrice'].' $ to '.$ServiceResellerPrice.' $';
             }
             if($ServiceOData['ServiceMinQuantity'] != $ServiceMinQuantity) {
-                $SELog[] = ($ServiceOData['ServiceMinQuantity'] < $ServiceMinQuantity) ? 'Минимальное количество возросло с '.$ServiceOData['ServiceMinQuantity'].' до '.$ServiceMinQuantity : 'Минимальное количество уменьшилось с '.$ServiceOData['ServiceMinQuantity'].' до '.$ServiceMinQuantity;
+                $SELog[] = ($ServiceOData['ServiceMinQuantity'] < $ServiceMinQuantity) ? 'Мінімальна кількість зросла з '.$ServiceOData['ServiceMinQuantity'].' до '.$ServiceMinQuantity : 'Мінімальна кількість зменшилася з '.$ServiceOData['ServiceMinQuantity'].' до '.$ServiceMinQuantity;
                 $SELogUA[] = ($ServiceOData['ServiceMinQuantity'] < $ServiceMinQuantity) ? 'Мінімальна кількість зросла з '.$ServiceOData['ServiceMinQuantity'].' до '.$ServiceMinQuantity : 'Мінімальна кількість зменшилася з '.$ServiceOData['ServiceMinQuantity'].' до '.$ServiceMinQuantity;
                 $SELogEN[] = ($ServiceOData['ServiceMinQuantity'] < $ServiceMinQuantity) ? 'Min amount has increased from '.$ServiceOData['ServiceMinQuantity'].' to '.$ServiceMinQuantity : 'Min amount has decreased from '.$ServiceOData['ServiceMinQuantity'].' to '.$ServiceMinQuantity;
             }
             if($ServiceOData['ServiceMaxQuantity'] != $ServiceMaxQuantity) {
-                $SELog[] = ($ServiceOData['ServiceMaxQuantity'] < $ServiceMaxQuantity) ? 'Максимальное количество возросло с '.$ServiceOData['ServiceMaxQuantity'].' до '.$ServiceMaxQuantity : 'Максимальное количество уменьшилось с '.$ServiceOData['ServiceMaxQuantity'].' до '.$ServiceMaxQuantity;
+                $SELog[] = ($ServiceOData['ServiceMaxQuantity'] < $ServiceMaxQuantity) ? 'Максимальна кількість зросла з '.$ServiceOData['ServiceMaxQuantity'].' до '.$ServiceMaxQuantity : 'Максимальна кількість зменшилася з '.$ServiceOData['ServiceMaxQuantity'].' до '.$ServiceMaxQuantity;
                 $SELogUA[] = ($ServiceOData['ServiceMaxQuantity'] < $ServiceMaxQuantity) ? 'Максимальна кількість зросла з '.$ServiceOData['ServiceMaxQuantity'].' до '.$ServiceMaxQuantity : 'Максимальна кількість зменшилася з '.$ServiceOData['ServiceMaxQuantity'].' до '.$ServiceMaxQuantity;
                 $SELogEN[] = ($ServiceOData['ServiceMaxQuantity'] < $ServiceMaxQuantity) ? 'Max amount has increased from '.$ServiceOData['ServiceMaxQuantity'].' to '.$ServiceMaxQuantity : 'Max amount has decreased from '.$ServiceOData['ServiceMaxQuantity'].' to '.$ServiceMaxQuantity;
             }
@@ -378,9 +371,9 @@ if(GetAction('save-service')) {
             }
         }
 
-        echo "Услуга успешно отредактирована";
+        echo "Послугу успішно відредаговано";
     } else {
-        echo 'Минимальный уровень обслуживания не может превышать максимальное количество.';
+        echo 'Мінімальна кількість не може перевищувати максимальну.';
     }
 }
 
@@ -394,10 +387,9 @@ if(GetAction('delete-service')) {
         $stmt = $pdo->prepare('DELETE FROM services WHERE ServiceID = :ServiceID');
         $stmt->execute(array(':ServiceID' => $ServiceID));
     } else {
-        echo 'Служба не существует.';
+        echo 'Послуга не існує.';
     }
 }
-
 
 if(GetAction('get-user-details')) {
     $UserID = $layer->safe('UserID');
@@ -438,12 +430,12 @@ if(GetAction('save-user')) {
                 ':UserTelegram'  => $UserTelegram,
                 ':UserID'        => $UserID
             ));
-            echo 'Сохранено.';
+            echo 'Збережено.';
         } else {
-            echo 'Сохранено!!';
+            echo 'Збережено!!';
         }
     } else {
-        echo 'Неверный адрес электронной почты.';
+        echo 'Невірна email адреса.';
     }
 }
 
@@ -465,12 +457,12 @@ if(GetAction('ban-user')) {
                 ':UserBannedExpireDate' => $ExpireDate,
                 ':UserBannedReason'     => $Reason
             ));
-            echo 'Пользователь отправлен в бан.';
+            echo 'Користувача заблоковано.';
         } else {
-            echo 'Пользователь уже заблокирован.';
+            echo 'Користувач вже заблокований.';
         }
     } else {
-        echo 'Срок действия не может быть до этого момента.';
+        echo 'Термін дії не може бути раніше поточного моменту.';
     }
 }
 
@@ -484,7 +476,7 @@ if(GetAction('unban-user')) {
         $stmt = $pdo->prepare('DELETE FROM users_banned WHERE UserBannedID = :UserBannedID');
         $stmt->execute(array(':UserBannedID' => $UserID));
     } else {
-        echo 'Пользователь не существует или он не запрещен.';
+        echo 'Користувач не існує або не заблокований.';
     }
 }
 
@@ -522,28 +514,28 @@ if(GetAction('create-user')) {
                                     ':UserDate'      => time(),
                                     ':UserIPAddress' => $ip
                                 ));
-                                echo 'Пользователь создан.';
+                                echo 'Користувача створено.';
 
                             } else {
-                                echo 'Учетная запись с этим именем пользователя / адресом электронной почты уже зарегистрирована.';
+                                echo 'Обліковий запис з таким іменем/email вже існує.';
                             }
                         } else {
-                            echo 'Пароль не может совпадать с именем пользователя.';
+                            echo 'Пароль не може співпадати з іменем користувача.';
                         }
                     } else {
-                        echo 'Длина пароля должна быть между 32 символами.';
+                        echo 'Довжина пароля має бути від 4 до 32 символів.';
                     }
                 } else {
-                    echo 'Длина имени пользователя должна быть от 4 до 32 символов.';
+                    echo 'Довжина імені користувача має бути від 4 до 32 символів.';
                 }
             } else {
-                echo 'Длина электронной почты должна составлять от 4 до 48 символов.';
+                echo 'Довжина email має бути від 4 до 48 символів.';
             }
         } else {
-            echo 'Недействительный адрес электронной почты. Предоставьте рабочий.';
+            echo 'Невірний email. Введіть дійсну адресу.';
         }
     } else {
-        echo 'Ваш повторно введенный пароль не соответствует первому.';
+        echo 'Паролі не співпадають.';
     }
 }
 
@@ -572,17 +564,17 @@ if(GetAction('delete-user')) {
         $stmt = $pdo->prepare('DELETE FROM users WHERE UserID = :UserID');
 
         if(!$stmt->execute(array(':UserID' => $UserID))) {
-            echo 'Ошибка удаления!';
+            echo 'Помилка видалення!';
         } else {
             echo 'OK ';
         }
 
     } else {
-        echo 'Пользователь не существует.';
+        echo 'Користувач не існує.';
     }
 }
 
-// News
+// Новини
 
 if(GetAction('add-news')) {
     $NewsTitle = $layer->safe('NewTitle');
@@ -646,11 +638,11 @@ if(GetAction('delete-news')) {
         $stmt = $pdo->prepare('DELETE FROM news WHERE NewID = :NewID');
         $stmt->execute(array(':NewID' => $NewID));
     } else {
-        echo 'Новости не существует.';
+        echo 'Новина не існує.';
     }
 }
 
-// Deposits
+// Депозити
 
 if(GetAction('delete-deposit')) {
     $DepositID = $layer->safe('DepositID');
@@ -662,7 +654,7 @@ if(GetAction('delete-deposit')) {
         $stmt = $pdo->prepare('DELETE FROM deposits WHERE DepositID = :DepositID');
         $stmt->execute(array(':DepositID' => $DepositID));
     } else {
-        echo 'Депозита не существует.';
+        echo 'Депозиту не існує.';
     }
 }
 
@@ -702,11 +694,11 @@ if(GetAction('update-deposit')) {
             }
         }
     } else {
-        echo 'Депозита не существует.';
+        echo 'Депозиту не існує.';
     }
 }
 
-// NEWS <-----
+// НОВИНИ <-----
 if(GetAction('add-News')) {
     $NEWSQuestion = $layer->safe('NEWSQuestion');
     $NEWSQuestion = $_POST['NEWSQuestion'];
@@ -714,14 +706,13 @@ if(GetAction('add-News')) {
     $NEWSAnswer = $_POST['NEWSAnswer'];
     $specshow = isset($_POST['specshow']) ? 1 : 0;
 
-
     $date = date('d.m.Y');
 
     if(isset($_POST['NEWSQuestionEN']) && isset($_POST['NEWSAnswerEN'])) {
         $NEWSQuestionEN = $_POST['NEWSQuestionEN'];
         $NEWSAnswerEN = $_POST['NEWSAnswerEN'];
     } else {
-        echo 'Не заполнены поля на английском';
+        echo 'Не заповнені поля англійською';
         exit();
     }
 
@@ -729,7 +720,7 @@ if(GetAction('add-News')) {
         $NEWSQuestionUA = $_POST['NEWSQuestionUA'];
         $NEWSAnswerUA = $_POST['NEWSAnswerUA'];
     } else {
-        echo 'Не заполнены поля на украинском';
+        echo 'Не заповнені поля українською';
         exit();
     }
 
@@ -744,7 +735,7 @@ if(GetAction('add-News')) {
         ':NEWSDate'       => $date,
         ':specshow'       => $specshow,
     ]);
-    echo "Новость успешно добавлена";
+    echo "Новину успішно додано";
 }
 
 if(GetAction('get-News-details')) {
@@ -757,7 +748,7 @@ if(GetAction('get-News-details')) {
         $row = $stmt->fetch();
         echo json_encode($row);
     } else {
-        echo 'Новости не существует';
+        echo 'Новини не існує';
     }
 }
 if(GetAction('save-News')) {
@@ -775,12 +766,11 @@ if(GetAction('save-News')) {
         $NEWSAnswer = $_POST['EditNEWSAnswer'];
         $specshow = isset($_POST['editspecshow']) ? 1 : 0;
 
-
         if(isset($_POST['EditNEWSQuestionEN']) && isset($_POST['EditNEWSAnswerEN'])) {
             $NEWSQuestionEN = $_POST['EditNEWSQuestionEN'];
             $NEWSAnswerEN = $_POST['EditNEWSAnswerEN'];
         } else {
-            echo 'Не заполнены поля на английском!';
+            echo 'Не заповнені поля англійською!';
             exit();
         }
 
@@ -788,7 +778,7 @@ if(GetAction('save-News')) {
             $NEWSQuestionUA = $_POST['EditNEWSQuestionUA'];
             $NEWSAnswerUA = $_POST['EditNEWSAnswerUA'];
         } else {
-            echo 'Не заполнены поля на украинском!';
+            echo 'Не заповнені поля українською!';
             exit();
         }
 
@@ -814,12 +804,12 @@ if(GetAction('save-News')) {
             ':specshow'       => $specshow,
         ]);
         if($qres) {
-            echo 'Новость успешно сохранена ';
+            echo 'Новину успішно збережено ';
         } else {
-            echo 'Ошибка сохранения новости! ';
+            echo 'Помилка збереження новини! ';
         }
     } else {
-        echo 'Новости не существует';
+        echo 'Новини не існує';
     }
 }
 if(GetAction('delete-News')) {
@@ -832,13 +822,12 @@ if(GetAction('delete-News')) {
         $stmt = $pdo->prepare('DELETE FROM news WHERE NEWSID = :NEWSID');
         $stmt->execute(array(':NEWSID' => $NEWSID));
     } else {
-        echo 'Новости не существует';
+        echo 'Новини не існує';
     }
 }
-// NEWS <-------
+// НОВИНИ <-------
 
-
-// Добавление и редактирование отзывов в базе comments_not_added
+// Додавання та редагування відгуків у базі comments_not_added
 
 if(GetAction('add-otzyv')) {
     $comments_name = $layer->safe('comments-name');
@@ -855,9 +844,8 @@ if(GetAction('add-otzyv')) {
         ':comments_answer' => $comments_answer,
         ':comments_date'   => $dates
     ));
-    echo "Отзыв успешно добавлен";
+    echo "Відгук успішно додано";
 }
-
 
 if(GetAction('get-otzyv-details')) {
     $CommentsID = $layer->safe('CommentsID');
@@ -869,14 +857,12 @@ if(GetAction('get-otzyv-details')) {
         $row = $stmt->fetch();
         echo json_encode($row);
     } else {
-        echo 'Отзыва не существует';
+        echo 'Відгуку не існує';
     }
 }
 
-
 if(GetAction('save-otzyv')) {
     $CommentsID = $layer->safe('edit-comments-id');
-
 
     $stmt = $pdo->prepare('SELECT CommentsID FROM comments_not_added WHERE CommentsID = :CommentsID');
     $stmt->execute(array(':CommentsID' => $CommentsID));
@@ -896,12 +882,11 @@ if(GetAction('save-otzyv')) {
             ':comments_answer' => $comments_answer,
             ':CommentsID'      => $CommentsID
         ));
-        echo "Отзыв успешно сохранен";
+        echo "Відгук успішно збережено";
     } else {
-        echo 'Отзыва не существует';
+        echo 'Відгуку не існує';
     }
 }
-
 
 if(GetAction('delete-otzyv')) {
     $CommentsID = $layer->safe('edit-comments-id');
@@ -913,21 +898,16 @@ if(GetAction('delete-otzyv')) {
         $stmt = $pdo->prepare('DELETE FROM comments_not_added WHERE CommentsID = :CommentsID');
         $stmt->execute(array(':CommentsID' => $CommentsID));
     } else {
-        echo 'Отзыва не существует';
+        echo 'Відгуку не існує';
     }
 }
 
-
-// Добавление и редактирование отзывов в базе comments_not_added
-
-
-// Добавление отзыва в ДР базу данных comments_added
+// Додавання відгуку в іншу базу даних comments_added
 
 if(GetAction('added-otzyv')) {
     $comments_name = $layer->safe('edit-comments-name');
     $comments_title = $layer->safe('edit-comments-title');
     $comments_answer = $layer->safe('edit-comments-answer');
-    // $comments_active = $layer->safe('edit-comments-active');
     $comments_active = $_POST['edit-comments-active'];
 
     $dates = date('d.m.Y H:i');
@@ -939,7 +919,7 @@ if(GetAction('added-otzyv')) {
         ':comments_answer' => $comments_active,
         ':comments_date'   => $dates
     ));
-    echo "Отзыв успешно добавлен на страницу отзывов";
+    echo "Відгук успішно додано на сторінку відгуків";
 
     $CommentsID = $layer->safe('edit-comments-id');
 
@@ -950,13 +930,11 @@ if(GetAction('added-otzyv')) {
         $stmt = $pdo->prepare('DELETE FROM comments_not_added WHERE CommentsID = :CommentsID');
         $stmt->execute(array(':CommentsID' => $CommentsID));
     } else {
-        echo 'Отзыва не существует';
+        echo 'Відгуку не існує';
     }
 }
-// Добавление отзыва в ДР базу данных comments_added
 
-
-// Редактирование добавленных отзывов в базе comments_added
+// Редагування доданих відгуків у базі comments_added
 
 if(GetAction('get-otzyvAdd-details')) {
     $CommentsID = $layer->safe('CommentsID');
@@ -968,14 +946,12 @@ if(GetAction('get-otzyvAdd-details')) {
         $row = $stmt->fetch();
         echo json_encode($row);
     } else {
-        echo 'Отзыва не существует';
+        echo 'Відгуку не існує';
     }
 }
 
-
 if(GetAction('save-otzyvAdd')) {
     $CommentsID = $layer->safe('edit-commentsAdd-id');
-
 
     $stmt = $pdo->prepare('SELECT CommentsID FROM comments_added WHERE CommentsID = :CommentsID');
     $stmt->execute(array(':CommentsID' => $CommentsID));
@@ -986,7 +962,6 @@ if(GetAction('save-otzyvAdd')) {
         $comments_title = $layer->safe('edit-commentsAdd-title');
         $comments_name = $layer->safe('edit-commentsAdd-name');
         $commentsAnswer = $layer->safe('edit-commentsAdd-answer');
-        // $comments_active = $layer->safe('edit-comments-active');
         $comments_active = $_POST['edit-commentsAdd-active'];
 
         $stmt = $pdo->prepare('UPDATE comments_added SET comments_title = :comments_title, comments_name = :comments_name, comments_answer = :comments_answer WHERE CommentsID = :CommentsID');
@@ -996,12 +971,11 @@ if(GetAction('save-otzyvAdd')) {
             ':comments_answer' => $comments_active,
             ':CommentsID'      => $CommentsID
         ));
-        echo "Отзыв успешно сохранен";
+        echo "Відгук успішно збережено";
     } else {
-        echo 'Отзыва не существует';
+        echo 'Відгуку не існує';
     }
 }
-
 
 if(GetAction('delete-otzyvAdd')) {
     $CommentsID = $layer->safe('edit-commentsAdd-id');
@@ -1013,11 +987,9 @@ if(GetAction('delete-otzyvAdd')) {
         $stmt = $pdo->prepare('DELETE FROM comments_added WHERE CommentsID = :CommentsID');
         $stmt->execute(array(':CommentsID' => $CommentsID));
     } else {
-        echo 'Отзыва не существует';
+        echo 'Відгуку не існує';
     }
 }
-// Редактирование добавленных отзывов в базе comments_added
-
 
 if(GetAction('add-update')) {
     $service = $layer->safe('update-create-service');
@@ -1037,7 +1009,7 @@ if(GetAction('add-update')) {
         ':changesUA' => $changesUA,
         ':date'      => time()
     ));
-    echo "Обновление успешно добавлено";
+    echo "Оновлення успішно додано";
 }
 
 if(GetAction('get-update-details')) {
@@ -1050,7 +1022,7 @@ if(GetAction('get-update-details')) {
         $row = $stmt->fetch();
         echo json_encode($row);
     } else {
-        echo 'Обновление не существует';
+        echo 'Оновлення не існує';
     }
 }
 
@@ -1078,9 +1050,9 @@ if(GetAction('save-update')) {
             ':changesUA' => $changesUA,
             ':id'        => $id
         ));
-        echo "Обновление успешно сохранено";
+        echo "Оновлення успішно збережено";
     } else {
-        echo 'Обновление не существует';
+        echo 'Оновлення не існує';
     }
 }
 
@@ -1094,6 +1066,6 @@ if(GetAction('delete-update')) {
         $stmt = $pdo->prepare('DELETE FROM updates WHERE id = :id');
         $stmt->execute(array(':id' => $id));
     } else {
-        echo 'Обновление не существует';
+        echo 'Оновлення не існує';
     }
 }
